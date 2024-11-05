@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Webcam from 'react-webcam';
 import { toast } from "sonner"
 import { Rings } from 'react-loader-spinner';
+import { beep } from '@/lib/audio';
 
 
 type Props = {}
@@ -30,12 +31,12 @@ const HomePage = (props: Props) => {
   return (
 
     <div className='flex h-screen'>
-      {/* Left division - webcam and Canvas  */}
+      {/* Left division - webcam and Canvas */}
       <div className='relative'>
         <div className='relative h-screen w-full'>
           <Webcam ref={webcamRef}
             mirrored={mirrored}
-            className='h-full w-full object-contain p-2'
+            className='h-full w-screen object-contain p-2'
           />
           <canvas ref={canvasRef}
             className='absolute top-0 left-0 h-full w-full object-contain'
@@ -99,6 +100,7 @@ const HomePage = (props: Props) => {
                   defaultValue={[volume]}
                   onValueCommit={(val) => {
                     setVolume(val[0]);
+                    beep(val[0]);
                   }}
                 />
               </PopoverContent>
